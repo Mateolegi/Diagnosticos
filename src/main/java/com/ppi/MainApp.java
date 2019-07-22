@@ -1,34 +1,27 @@
 package com.ppi;
 
+import com.ppi.diagnostico.controller.InicioController;
+import com.ppi.diagnostico.util.SceneFactory;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MainApp extends Application {
 
-    private static final Logger log = LoggerFactory.getLogger(MainApp.class);
+    public static Stage STAGE;
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainApp.class);
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    public void start(Stage stage) throws Exception {
-
-        log.info("Starting Hello JavaFX and Maven demonstration application");
-
-        String fxmlFile = "/fxml/inicio.fxml";
-        log.debug("Loading FXML for main view from: {}", fxmlFile);
-        FXMLLoader loader = new FXMLLoader();
-        Parent rootNode = loader.load(getClass().getResourceAsStream(fxmlFile));
-
-        log.debug("Showing JFX scene");
-        Scene scene = new Scene(rootNode, 1000, 600);
-        scene.getStylesheets().add("/styles/styles.css");
-
+    public void start(@NotNull Stage stage) {
+        MainApp.STAGE = stage;
+        LOGGER.debug("Showing JFX scene");
+        Scene scene = SceneFactory.createScene(InicioController.FXML);
         stage.setTitle("Diagnóstico");
         stage.setScene(scene);
         stage.setResizable(false);
